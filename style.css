@@ -1,0 +1,19 @@
+body {
+    background-image: url("https://www.almanac.com/sites/default/files/image_nodes/rainbow-weather.jpg");    /*  rgb(166, 208, 248) */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1;
+  }
+  
+  
+  .jumbotron {
+    background-image: url("https://i.pinimg.com/originals/ac/3d/86/ac3d86a4c0554b70fe13303fe54c2cfa.jpg");
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    background-color: transparent;
+    color: rgb(14, 39, 59);
+    border-radius: 0;
+    border-bottom: 10px solid rgb(39, 115, 187);
+  }
