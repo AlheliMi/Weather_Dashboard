@@ -4,8 +4,7 @@ body {
     font-size: 16px;
     line-height: 1;
   }
-  
-  
+    
   .jumbotron {
     background-image: url("https://i.pinimg.com/originals/ac/3d/86/ac3d86a4c0554b70fe13303fe54c2cfa.jpg");
     font-family: 'Open Sans', sans-serif;
@@ -16,4 +15,61 @@ body {
     color: rgb(14, 39, 59);
     border-radius: 0;
     border-bottom: 10px solid rgb(39, 115, 187);
+  }
+
+  .cityList {
+    padding-top: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 10px;
+    align-items: center;
+    align-content: center;
+    color: rgb(14, 39, 59);
+  }
+
+  #cityTime {
+    background-color: rgb(103, 179, 241);
+    font-weight: bolder;
+    text-align: center;
+  }
+
+  .forecast{
+    background-color: rgb(103, 179, 241);
+    text-align: center;
+  }
+
+  .forecastCards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    opacity: 0.6
+  }
+
+  .card {
+    max-width: 200px;
+    min-width: 200px;
+    border-radius: 5px;
+    margin: 5px; 
+    margin-bottom: 10px;
+    margin-left: 5px;
+    align-content: center;
+    text-align: center;
+  }
+
+  .card-divider {
+    background-color: rgb(103, 179, 241);
+  }
+
+  .card-section {
+    background-color: rgb(192, 226, 236);
+    image-orientation: inherit;
+    text-align: center;
+    font-weight: bolder;
+    opacity: 1;
+  }
+
+  img{
+    opacity: 1;
   }
