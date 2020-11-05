@@ -1,5 +1,6 @@
 $(document).ready(function() { 
- 
+    var varCities =0
+    //localStorage.clear()
     // add Moment.js
     var currentDate = moment().format('MMMM Do YYYY, h:mm:ss a');
     console.log(currentDate);
@@ -9,11 +10,11 @@ $(document).ready(function() {
     
     var searchBtn = $("#searchButton");
     console.log(searchBtn);
-    var citiesStorage = []
+
 
     searchBtn.on("click",function (event) {
       event.preventDefault();
-
+       
     // This is our API key
     var APIKey = "166a433c57516f51dfab1f7edaed8413";
  // To grab the city search
@@ -38,11 +39,10 @@ $(document).ready(function() {
         console.log(response);
 
         // Transfer content to HTML
-
-          $(".city").html("<h1>" + response.name + " Weather Details</h1>");
+          $(".imgIcon").attr("src","http://openweathermap.org/img/w/" + response.weather.icon + "png");
+          $(".city").html("<h2>" + response.name + " Weather Details</h1>");
           $(".wind").text("Wind Speed: " + response.wind.speed + " MPH");
           $(".humidity").text("Humidity: " + response.main.humidity + " %");
-          
           // add temp content to html
           $(".temp").text("Temperature (F) " + tempF(response.main.temp) + " ºF");
 
@@ -50,37 +50,40 @@ $(document).ready(function() {
           console.log("Wind Speed: " + response.wind.speed +" MPH");
           console.log("Humidity: " + response.main.humidity + " %");
           console.log("Temperature (F): " + tempF(response.main.temp) + " ºF");   
-        
-            
+  
+           
 
-        var citiesSaved=  $(".citiesSaved").addClass("cityList").prepend($("<li>").text(searchCitys));
+      $(".citiesSaved").addClass("cityList").prepend($("<li>").text(searchCitys));
+       
+      console.log(searchCitys);
         /* JSON.parse(citiesSaved) */
-        citiesStorage.push(citiesSaved);
-        localStorage.setItem("Cities Searched", JSON.stringify(citiesStorage));
-/*         console.log(localStorage.getItem("Cities Searched")) 
-        citiesSaved.append(localStorage.getItem("Cities Searched")); */
+
+
+        varCities++
+        localStorage.setItem("Cities Searched " + varCities, (searchCitys));
+        console.log(localStorage.getItem("Cities Searched " + varCities)) 
+       // var citiesList = JSON.parse(localStorage.getItem(searchCitys))
+
+        //citiesList.append(localStorage.getItem("Cities Searched")); 
       });
     
     
 
-           // This is our API key for five days forescast
+    // This is our API key for five days forescast
     var APIKey = "166a433c57516f51dfab1f7edaed8413";
     // To grab the city search
-         var searchCitys = $("#searchInput").val();
-         console.log(searchCitys);
-       // Here we are building the URL we need to query the database
-       var queryURL = "http://api.openweathermap.org/data/2.5/forecast?" +
-         "q=" + searchCitys + "&appid=" + APIKey;
-         console.log(queryURL)
-       // Here we run our AJAX call to the OpenWeatherMap API forecast
+    var searchCitys = $("#searchInput").val();
+    console.log(searchCitys);
+    // Here we are building the URL we need to query the database
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?" +
+    "q=" + searchCitys + "&appid=" + APIKey;
+    console.log(queryURL)
+       // Run our AJAX call to the OpenWeatherMap API forecast
        $.ajax({
          url: queryURL,
          method: "GET"
        })       
          .then(function(response) {
-
-        
-           // Log the queryURL
            forecastArray=[]
           forecastArray[0]= response.list[3]
           forecastArray[1]= response.list[11]
@@ -89,8 +92,8 @@ $(document).ready(function() {
           forecastArray[4]= response.list[35]
           console.log(forecastArray);
 
-
-/*           $(".futureForecast").prepend($("<p>").text("Weather Five days Forecast: "));  */
+           
+           $("#FF").addClass("forecast").text("Weather Five days Forecast: "); 
             $(".forecastCards").html("");
             for(i=0; i<forecastArray.length; i++){
                 var card = $("<div>").addClass("card")
@@ -117,10 +120,6 @@ $(document).ready(function() {
 
         })
 
-
-
-
-
-      
       });
+
     })
