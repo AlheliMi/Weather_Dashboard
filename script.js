@@ -51,7 +51,7 @@ $(document).ready(function() {
           console.log("Temperature (F): " + tempF(response.main.temp) + " ºF");   
 
           // http://api.openweathermap.org/data/2.5/uvi?lat=
-          var queryURL = "http://api.openweathermap.org/data/2.5/uvi?" +"lat="+ response.coord.lat + "&lon="+ response.coord.lon + "&appid=" + APIKey;
+          var queryURL = "https://api.openweathermap.org/data/2.5/uvi?" +"lat="+ response.coord.lat + "&lon="+ response.coord.lon + "&appid=" + APIKey;
           $.ajax({
            url: queryURL,
            method: "GET"
@@ -98,7 +98,7 @@ if (indexUV >=0 && indexUV <=3.0) {
     var searchCitys = $("#searchInput").val();
     console.log(searchCitys);
     // Here we are building the URL we need to query the database
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?" +
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?" +
     "q=" + searchCitys + "&appid=" + APIKey;
     console.log(queryURL)
        // Run our AJAX call to the OpenWeatherMap API forecast
@@ -127,7 +127,7 @@ if (indexUV >=0 && indexUV <=3.0) {
                 )
                 .append(
                     $("<div>").addClass("card-section").append(
-                        $("<img>").attr("src","http://openweathermap.org/img/w/" + forecastArray[i].weather[0].icon + ".png")
+                        $("<img>").attr("src","https://openweathermap.org/img/w/" + forecastArray[i].weather[0].icon + ".png")
                     ).append(
                         $("<p>").text("Temp: " + tempF(forecastArray[i].main.temp) +" ºF")
                     )
