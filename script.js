@@ -38,35 +38,58 @@ $(document).ready(function() {
         // Log the resulting object
         console.log(response);
 
-        // Transfer content to HTML
-          $(".imgIcon").attr("src","http://openweathermap.org/img/w/" + response.weather.icon + "png");
+        // Transfer content to HTML, THE ICON for the current day, does not work
+          /* $(".imgIcon").attr("src","http://openweathermap.org/img/w/" + response.weather.icon + "png"); */
           $(".city").html("<h2>" + response.name + " Weather Details</h1>");
           $(".wind").text("Wind Speed: " + response.wind.speed + " MPH");
           $(".humidity").text("Humidity: " + response.main.humidity + " %");
-          // add temp content to html
-          $(".temp").text("Temperature (F) " + tempF(response.main.temp) + " ºF");
+          $(".temp").text("Temperature " + tempF(response.main.temp) + " ºF");
 
           // Log the data in the console as well
           console.log("Wind Speed: " + response.wind.speed +" MPH");
           console.log("Humidity: " + response.main.humidity + " %");
           console.log("Temperature (F): " + tempF(response.main.temp) + " ºF");   
-  
-           
 
-      $(".citiesSaved").addClass("cityList").prepend($("<li>").text(searchCitys));
+          // http://api.openweathermap.org/data/2.5/uvi?lat=
+          var queryURL = "http://api.openweathermap.org/data/2.5/uvi?" +"lat="+ response.coord.lat + "&lon="+ response.coord.lon + "&appid=" + APIKey;
+          $.ajax({
+           url: queryURL,
+           method: "GET"
+          })
+           .then(function(response){
+              $(".current-uv").text("UV Index: " + response.value);
+          var indexUV = response.value
+      
+                     
+if (indexUV >=0 && indexUV <=3.0) {
+  $(".current-uv").removeClass("yellow orange red purple").addClass("green").text("UV Index: " + response.value + " LOW you can wear your bikini with no problems")
+  }
+  else if (indexUV >=3.0 && indexUV <=5.0) {
+    $(".current-uv").removeClass("green orange red purple").addClass("yellow").text("UV Index: " + response.value + " MODERRATE use little sunscreen")
+  }
+  else if (indexUV >=6.0 && indexUV<=7.0) {
+    $(".current-uv").removeClass("green yellow red purple").addClass("orange").text("UV Index: " + response.value + " HIGH use a lot of sunscrreen")
+  } 
+  else if(indexUV >=8.0 && indexUV <=10.0) {
+    $(".current-uv").removeClass("green yellow orange purple").addClass("red").text("UV Index: " + response.value + " VERY HIGH you better get an armour")
+  }
+  else if(indexUV >=11.0) {
+    $(".current-uv").removeClass("green yellow orange red").addClass("purple").text("UV Index: " + response.value + " EXTREME you are going to toast") 
+  }
+           });
+
+/*            $(".citiesSaved").addClass("cityList").prepend($("<li>").text(searchCitys)) */
+
+      var buttonCitiesList = $(".citiesSaved").addClass("cityList myButton").prepend($("<button>").addClass("cityList myButton").text(searchCitys));
        
       console.log(searchCitys);
         /* JSON.parse(citiesSaved) */
-
-
         varCities++
         localStorage.setItem("Cities Searched " + varCities, (searchCitys));
         console.log(localStorage.getItem("Cities Searched " + varCities)) 
        // var citiesList = JSON.parse(localStorage.getItem(searchCitys))
-
         //citiesList.append(localStorage.getItem("Cities Searched")); 
       });
-    
     
 
     // This is our API key for five days forescast
@@ -122,4 +145,12 @@ $(document).ready(function() {
 
       });
 
+
+      // this should work to turn the button to link the city to the weather but i couldn´t make it work
+/*       $(".cityList").on(click(function(){
+        var buttonText = $(this).text();
+        console.log(buttonText);
+        response.buttonCitiesList
+      })); */
+     
     })
